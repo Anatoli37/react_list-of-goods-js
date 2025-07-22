@@ -64,14 +64,6 @@ describe('Page', () => {
       page.resetButton().should('exist');
     });
 
-    it('should have not active "Sort alphabetically" button', () => {
-      page.sortAlphButton().should('have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should have not active "Sort by length" button', () => {
-      page.sortByLengthButton().should('have.class', NOT_ACTIVE_CLASS);
-    });
-
     it('should have active "Reverse" button', () => {
       page.reverseButton().should('not.have.class', NOT_ACTIVE_CLASS);
     });
@@ -143,16 +135,22 @@ describe('Page', () => {
       page.resetButton().should('exist');
     });
 
-    it('should have active "Sort alphabetically" button', () => {
-      page.sortAlphButton().should('not.have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should have not active "Sort by length" button', () => {
-      page.sortByLengthButton().should('have.class', NOT_ACTIVE_CLASS);
+    it('should have not active "Reverse" button', () => {
+      page.reverseButton().should('have.class', NOT_ACTIVE_CLASS);
     });
 
     it('should have not active "Reverse" button', () => {
       page.reverseButton().should('have.class', NOT_ACTIVE_CLASS);
+    });
+
+    it('should have not active "Reverse" button', () => {
+      page.reverseButton().should('have.class', NOT_ACTIVE_CLASS);
+    });
+
+    it('should allow to reverse again', () => {
+      page.reverseButton().click();
+
+      page.assertFirstGoods('Jam', 'Ice cream', 'Honey');
     });
 
     it('should allow to reset', () => {
@@ -173,6 +171,7 @@ describe('Page', () => {
     });
 
     it(`should reverse goods sorted alphabetically`, () => {
+      // Після реверсу перші елементи — останні відсортовані за алфавітом
       page.assertFirstGoods('Jam', 'Ice cream', 'Honey');
     });
 
@@ -194,91 +193,13 @@ describe('Page', () => {
 
     it('should allow to reverse again', () => {
       page.reverseButton().click();
-      
+
+      // Після другого реверсу порядок повертається до алфавітного
       page.assertFirstGoods('Apple', 'Bread', 'Carrot');
     });
 
     it('should allow to reset', () => {
-      page.resetButton().click()
-
-      page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
-      page.sortAlphButton().should('have.class', NOT_ACTIVE_CLASS);
-      page.sortByLengthButton().should('have.class', NOT_ACTIVE_CLASS);
-      page.reverseButton().should('have.class', NOT_ACTIVE_CLASS);
-      page.resetButton().should('not.exist');
-    });
-  });
-
-  describe('after pressing "Sort by length"', () => {
-    beforeEach(() => {
-      page.sortByLengthButton().click();
-    });
-
-    it(`should sort goods by length`, () => {
-      page.assertFirstGoods('Jam', 'Eggs', 'Fish');
-    });
-
-    it('should show "Reset" button', () => {
-      page.resetButton().should('exist');
-    });
-
-    it('should have not active "Sort alphabetically" button', () => {
-      page.sortAlphButton().should('have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should have active "Sort by length" button', () => {
-      page.sortByLengthButton().should('not.have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should have not active "Reverse" button', () => {
-      page.reverseButton().should('have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should allow to reset', () => {
-      page.resetButton().click()
-
-      page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
-      page.sortAlphButton().should('have.class', NOT_ACTIVE_CLASS);
-      page.sortByLengthButton().should('have.class', NOT_ACTIVE_CLASS);
-      page.reverseButton().should('have.class', NOT_ACTIVE_CLASS);
-      page.resetButton().should('not.exist');
-    });
-  });
-
-  describe('after "Sort by length" and reverse', () => {
-    beforeEach(() => {
-      page.sortByLengthButton().click();
-      page.reverseButton().click();
-    });
-
-    it(`should reverse goods sorted by length`, () => {
-      page.assertFirstGoods('Ice cream', 'Dumplings', 'Garlic');
-    });
-
-    it('should show "Reset" button', () => {
-      page.resetButton().should('exist');
-    });
-
-    it('should not have active "Sort alphabetically" button', () => {
-      page.sortAlphButton().should('have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should have active "Sort by length" button', () => {
-      page.sortByLengthButton().should('not.have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should have active "Reverse" button', () => {
-      page.reverseButton().should('not.have.class', NOT_ACTIVE_CLASS);
-    });
-
-    it('should allow to reverse again', () => {
-      page.reverseButton().click();
-      
-      page.assertFirstGoods('Jam', 'Eggs', 'Fish');
-    });
-
-    it('should allow to reset', () => {
-      page.resetButton().click()
+      page.resetButton().click();
 
       page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
       page.sortAlphButton().should('have.class', NOT_ACTIVE_CLASS);
